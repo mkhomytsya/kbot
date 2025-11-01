@@ -1,0 +1,11 @@
+{
+    "chat.disableAIFeatures": false,
+    "github.copilot.chat.agent.thinkingTool": true,
+    "github.copilot.chat.alternateGptPrompt.enabled": true,
+    "github.copilot.chat.editor.temporalContext.enabled": true,
+    "github.copilot.chat.edits.temporalContext.enabled": true,
+    "github.copilot.chat.executePrompt.enabled": true,
+    "github.copilot.chat.generateTests.codeLens": true,
+    "github.copilot.chat.codesearch.enabled": true,
+    "editor.defaultFormatter": "golang.go"
+}
