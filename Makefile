@@ -20,12 +20,13 @@ clean:
 	rm -f $(APP_NAME)
 
 # Build Docker image
-docker-build:
-	docker build -t $(APP_NAME):latest .
+image:
+	docker build -t $(APP):$(VERSION)-$(TARGETOS)-$(TARGETARCH) .
 
-# Push Docker image (requires login)
-docker-push:
-	docker push $(APP_NAME):latest
+# Push Docker image
+push:
+	docker tag $(APP):$(VERSION)-$(TARGETOS)-$(TARGETARCH) ghcr.io/$(GITHUB_REPOSITORY):$(VERSION)-$(TARGETOS)-$(TARGETARCH)
+	docker push ghcr.io/$(GITHUB_REPOSITORY):$(VERSION)-$(TARGETOS)-$(TARGETARCH)
 
 # Full build and test
 all: clean test build
