@@ -11,6 +11,24 @@ A Telegram bot for experimenting with Golang and the [telebot](https://github.co
 - Responds to the text `hello` with the current application version;
 - Separate command `kbot version` to check the build version.
 
+## CI/CD Pipeline
+
+The project uses GitHub Actions for automated CI/CD. The workflow triggers on pushes to the `develop` branch and performs the following steps:
+
+```mermaid
+graph TD
+    A[Push to develop branch] --> B[Checkout code]
+    B --> C[Set up Go]
+    C --> D[Run tests]
+    D --> E[Build binary]
+    E --> F[Build Docker image]
+    F --> G[Push to GHCR]
+    G --> H[Update Helm chart tag]
+    H --> I[Commit changes]
+    I --> J[Push to develop]
+    J --> K[ArgoCD syncs deployment]
+```
+
 ## Prerequisites
 
 - [Go 1.22 or newer](https://go.dev/dl/) installed;
