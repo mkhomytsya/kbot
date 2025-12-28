@@ -66,20 +66,17 @@ jobs:
 
     - name: Update Helm chart tag
       run: |
-        sed -i 's/tag: .*/tag: "v1.0.0-${{ github.sha }}"/' kbot-chart/values.yaml
+        sed -i 's/tag: .*/tag: "v1.0.0-'$GITHUB_SHA'"/' kbot-chart/values.yaml
 
     - name: Commit updated values.yaml
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         git add kbot-chart/values.yaml
-        git commit -m "Update image tag to v1.0.0-${{ github.sha }}" || echo "No changes to commit"
+        git commit -m "Update image tag to v1.0.0-$GITHUB_SHA" || echo "No changes to commit"
 
     - name: Push changes
-      uses: actions/push@v1
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        branch: develop
+      run: git push origin develop
 
     # Note: ArgoCD deployment would be triggered by the commit to develop branch
     # Assuming ArgoCD is configured to sync on changes to this repo
