@@ -19,9 +19,9 @@ var (
 
 // kbotCmd represents the kbot command
 var kbotCmd = &cobra.Command{
-	Use:   "kbot",
+	Use:     "kbot",
 	Aliases: []string{"start"},
-	Short: "Start the kbot application",
+	Short:   "Start the kbot application",
 	Long: `A longer description that spans multiple lines and likely contains examples
 and usage of using your command. For example:
 
@@ -45,10 +45,10 @@ to quickly create a Cobra application.`,
 			payload := m.Message().Payload
 
 			switch payload {
-				case "hello":
-					return m.Send(fmt.Sprintf("Hello I'm Kbot %s!", appVersion))
+			case "hello":
+				return m.Send(fmt.Sprintf("Hello I'm Kbot %s!", appVersion))
 
-				}
+			}
 			return err
 		})
 

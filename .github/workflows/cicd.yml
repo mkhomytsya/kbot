@@ -3,7 +3,7 @@ name: CI/CD Pipeline
 on:
   push:
     branches:
-      - develop
+      - main
 
 permissions:
   contents: write
@@ -27,7 +27,7 @@ jobs:
 
       - name: Set version
         run: |
-          VERSION=$(git describe --tags --abbrev=0)-$(git rev-parse --short HEAD)
+          VERSION=v1.0.0-$(git rev-parse --short HEAD)
           echo "VERSION=$VERSION" >> $GITHUB_ENV
           echo "Using version: $VERSION"
 
@@ -37,6 +37,12 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Run tests
+        run: make test
+
+      - name: Build binary
+        run: make build
 
       - name: Build and push Docker image
         env:
@@ -49,13 +55,13 @@ jobs:
       - name: Update Helm chart
         uses: mikefarah/yq@master
         with:
-          cmd: yq -i '.image.tag=strenv(VERSION) | .image.arch=strenv(TARGETARCH)' kbot-chart/values.yaml
+          cmd: yq -i '.image.tag=strenv(VERSION) | .image.arch=strenv(TARGETARCH)' helm/values.yaml
 
       - name: Commit Helm chart changes
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
-          git add kbot-chart/values.yaml
+          git add helm/values.yaml
           git commit -m "chore: update version to ${{ env.VERSION }}" || echo "No changes"
           git push
 
