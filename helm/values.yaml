@@ -8,7 +8,7 @@ replicaCount: 1
 image:
   registry: "ghcr.io"
   repository: "mkhomytsya/kbot"
-  tag: "v1.0.0-4a6ee4e"
+  tag: "v1.0.0-da85893"
   os: "linux"
   arch: ""
   # This sets the pull policy for images.
