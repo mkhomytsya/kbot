@@ -37,7 +37,7 @@ help:
 	@echo ""
 	@echo "Configuration:"
 	@echo "  TARGETOS   - Target OS (linux, darwin, windows) [$(TARGETOS)]"
-	@echo "  TARGETARCH - Target architecture (amd64, arm64) [$(TARGETARCH)]"
+	@echo "   - Target architecture (amd64, arm64) [$()]"
 	@echo "  CGO_ENABLED - Enable CGO (0 or 1) [$(CGO_ENABLED)]"
 
 # Format Go code
@@ -69,32 +69,32 @@ get:
 # Development build
 dev: format get
 	@echo "Building development version..."
-	@CGO_ENABLED=$(CGO_ENABLED) GOOS=$(TARGETOS) GOARCH=$(TARGETARCH) \
+	@CGO_ENABLED=$(CGO_ENABLED) GOOS=$(TARGETOS) GOARCH=$() \
 		go build -v -o kbot -ldflags "-X=github.com/mkhomytsya/kbot/cmd.appVersion=$(VERSION)-dev"
 
 # Production build
 build: format get
 	@echo "Building production version..."
-	@CGO_ENABLED=$(CGO_ENABLED) GOOS=$(TARGETOS) GOARCH=$(TARGETARCH) \
+	@CGO_ENABLED=$(CGO_ENABLED) GOOS=$(TARGETOS) GOARCH=$() \
 		go build -v -o kbot -ldflags "-X=github.com/mkhomytsya/kbot/cmd.appVersion=$(VERSION) -w -s"
 
 # Build Docker image
 image:
 	@echo "Building Docker image..."
-	@docker build . -t $(REGISTRY)/$(APP):$(VERSION)-$(TARGETARCH) \
+	@docker build . -t $(REGISTRY)/$(APP):$(VERSION) \
 		--build-arg TARGETARCH=$(TARGETARCH) \
 		--build-arg VERSION=$(VERSION)
 
 # Push Docker image
 push:
 	@echo "Pushing Docker image..."
-	@docker push $(REGISTRY)/$(APP):$(VERSION)-$(TARGETARCH)
+	@docker push $(REGISTRY)/$(APP):$(VERSION)
 
 # Clean build artifacts
 clean:
 	@echo "Cleaning build artifacts..."
 	@rm -rf kbot
-	@docker rmi $(REGISTRY)/$(APP):$(VERSION)-$(TARGETARCH) || true
+	@docker rmi $(REGISTRY)/$(APP):$(VERSION) || true
 
 # Release target
 release: clean test build image push
