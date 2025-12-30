@@ -7,7 +7,7 @@ TARGETOS ?= linux
 TARGETARCH ?= amd64
 CGO_ENABLED ?= 0
 
-VERSION := v1.0.0-$(shell git rev-parse --short HEAD)-${TARGETOS}-${TARGETARCH}
+VERSION := v1.0.0-$(shell git rev-parse --short HEAD)
 
 # Validate environment variables
 ifeq ($(TARGETOS),)
