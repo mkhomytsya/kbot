@@ -65,3 +65,5 @@ Send `/start hello` to the bot, and it will reply: `Hello I'm Kbot Version 1.0.2
 ## Additional Information
 
 This project uses the `gopkg.in/telebot.v3` library to interact with the Telegram API. If you change the bot’s behavior or add new commands, update the token and restart the service.
+
+rebuild
