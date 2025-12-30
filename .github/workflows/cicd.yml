@@ -54,15 +54,18 @@ jobs:
       - name: Update Helm chart
         uses: mikefarah/yq@master
         with:
-          cmd: yq -i '.image.tag=strenv(VERSION) | .image.arch=strenv(TARGETARCH)' helm/values.yaml
+          cmd: yq -i '.image.tag=strenv(VERSION) | .image.os="linux" | .image.arch="amd64"' helm/values.yaml
 
       - name: Commit Helm chart changes
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
-          git add helm/values.yaml
-          git commit -m "chore: update version to ${{ env.VERSION }}" || echo "No changes"
-          git push
+          git add .
+          if ! git diff --staged --quiet; then
+            git commit -m "chore: update version to ${{ env.VERSION }}"
+            git pull --rebase origin develop
+            git push origin develop
+          fi
 
     # Note: ArgoCD deployment would be triggered by the commit to develop branch
     # Assuming ArgoCD is configured to sync on changes to this repo

@@ -81,14 +81,14 @@ build: format get
 # Build Docker image
 image:
 	@echo "Building Docker image..."
-	@docker build . -t $(REGISTRY)/$(APP):$(VERSION) \
+	@docker build . -t $(REGISTRY)/$(APP):$(VERSION)-$(TARGETOS)-$(TARGETARCH) \
 		--build-arg TARGETARCH=$(TARGETARCH) \
 		--build-arg VERSION=$(VERSION)
 
 # Push Docker image
 push:
 	@echo "Pushing Docker image..."
-	@docker push $(REGISTRY)/$(APP):$(VERSION)
+	@docker push $(REGISTRY)/$(APP):$(VERSION)-$(TARGETOS)-$(TARGETARCH)
 
 # Clean build artifacts
 clean:
