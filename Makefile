@@ -1,12 +1,13 @@
 # Application name and registry configuration
 APP := kbot
 REGISTRY := ghcr.io/mkhomytsya
-VERSION := v1.0.0-$(shell git rev-parse --short HEAD)
 
 # Build configuration
 TARGETOS ?= linux
 TARGETARCH ?= amd64
 CGO_ENABLED ?= 0
+
+VERSION := v1.0.0-$(shell git rev-parse --short HEAD)-${TARGETOS}-${TARGETARCH}
 
 # Validate environment variables
 ifeq ($(TARGETOS),)
