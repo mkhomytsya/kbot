@@ -12,6 +12,10 @@ permissions:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    env:
+      TARGETARCH: "amd64"
+      TARGETOS: "linux"
+      APP: "kbot"
 
     steps:
       - name: Checkout
@@ -45,12 +49,7 @@ jobs:
         run: make build
 
       - name: Build and push Docker image
-        env:
-          APP: "kbot"
-          TARGETARCH: "amd64"
-          TARGETOS: "linux"
-        run: |
-          make image push
+        run: make image push
 
       - name: Update Helm chart
         uses: mikefarah/yq@master
