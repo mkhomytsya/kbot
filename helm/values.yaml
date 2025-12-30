@@ -10,7 +10,7 @@ image:
   repository: "mkhomytsya/kbot"
   tag: "v1.0.0-582295b"
   os: "linux"
-  arch: ""
+  arch: "amd64"
   # This sets the pull policy for images.
   pullPolicy: IfNotPresent
 # Telegram token
