@@ -31,7 +31,7 @@ jobs:
 
       - name: Set version
         run: |
-          VERSION=v1.0.0-$(git rev-parse --short HEAD)-${TARGETOS}-${TARGETARCH}
+          VERSION=v1.0.0-$(git rev-parse --short HEAD)
           echo "VERSION=$VERSION" >> $GITHUB_ENV
           echo "Using version: $VERSION"
 
