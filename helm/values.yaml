@@ -8,9 +8,9 @@ replicaCount: 1
 image:
   registry: "ghcr.io"
   repository: "mkhomytsya/kbot"
-  tag: "v1.0.0-da85893"
+  tag: "v1.0.0-4a0caa9"
   os: "linux"
-  arch: ""
+  arch: "amd64"
   # This sets the pull policy for images.
   pullPolicy: IfNotPresent
 # Telegram token
